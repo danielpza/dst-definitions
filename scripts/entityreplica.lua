@@ -1,0 +1,4 @@
+---@class ds.entity.replica
+---@field inventory? ds.replicas.inventory|nil
+---@field equippable? ds.replicas.equippable|nil
+---@field container? ds.replicas.container|nil

@@ -3,10 +3,7 @@
 ---@class ds.entity.components
 ---@field tool? ds.components.tool|nil
 ---@field equippable? ds.components.equippable|nil
-
----@class ds.entity.replica
----@field inventory? ds.replicas.inventory|nil
----@field equippable? ds.replicas.equippable|nil
+---@field container? ds.components.container|nil
 
 ---@class ds.entity
 ---@field prefab string

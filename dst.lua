@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 ---@meta
 
 ---@param modconfig string

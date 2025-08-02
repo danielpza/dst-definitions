@@ -16,4 +16,10 @@ function Inventory:GetActiveItem() end
 ---@return { [ds.equipslot]: ds.entity }
 function Inventory:GetEquips() end
 
+---@return ds.components.container | nil # Returns backpack container component
+function Inventory:GetOverflowContainer() end
+
+---@param item ds.entity
+function Inventory:UseItemFromInvTile(item) end
+
 return Inventory

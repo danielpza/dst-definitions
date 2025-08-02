@@ -6,3 +6,11 @@ DEGREES = PI / 180
 RADIANS = 180 / PI
 FRAMES = 1 / 30
 TILE_SCALE = 4
+
+---@enum ds.equipslot
+EQUIPSLOTS = {
+   HANDS = "hands",
+   HEAD = "head",
+   BODY = "body",
+   BEARD = "beard",
+}

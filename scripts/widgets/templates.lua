@@ -1,4 +1,5 @@
 ---@meta
+---@diagnostic disable: unused-local, missing-return
 
 local TEMPLATES = {}
 
@@ -15,6 +16,9 @@ local TEMPLATES = {}
 ---@param labelText string
 ---@param sideLabel? string
 ---@param alwaysShowLabel? boolean
+---@param onclick? fun(): nil
+---@param textinfo? any
+---@param defaultTexture? any
 ---@return ds.widget
 function TEMPLATES.IconButton(
    iconAtlas,

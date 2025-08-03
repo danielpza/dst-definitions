@@ -14,3 +14,11 @@ EQUIPSLOTS = {
    BODY = "body",
    BEARD = "beard",
 }
+
+---@alias ds.hanchor `ANCHOR_MIDDLE` | `ANCHOR_LEFT` | `ANCHOR_RIGHT`
+---@alias ds.vanchor `ANCHOR_MIDDLE` | `ANCHOR_TOP` | `ANCHOR_BOTTOM`
+ANCHOR_MIDDLE = 0
+ANCHOR_LEFT = 1
+ANCHOR_RIGHT = 2
+ANCHOR_TOP = 1
+ANCHOR_BOTTOM = 2

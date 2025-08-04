@@ -14,6 +14,8 @@ local EntityScript = {}
 
 function EntityScript:Remove() end
 
+---@param tag string
+---@return boolean
 function EntityScript:HasTag(tag) end
 
 function EntityScript:HasTags(tags) end

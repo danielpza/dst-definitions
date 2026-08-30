@@ -689,6 +689,39 @@ end
     }
 
     #[test]
+    fn test_constants_patterns() {
+        let code = r#"
+CONTROL_PRIMARY = 0
+CONTROL_SECONDARY = 1
+CONTROL_INV_1 = 15
+KEY_A = 97
+KEY_B = 98
+IGNORED_CONST = 999
+"#;
+        let mut config = Config::default_embedded();
+        config.plugins.constants.patterns = vec!["CONTROL_*".to_string(), "KEY_*".to_string()];
+        let resolver = NamingResolver::new(config.plugins.naming.clone());
+        let infer = InferenceEngine::new(&config, &resolver);
+        let plugins = PluginRegistry::default_plugins();
+        let ast = full_moon::parse(code).unwrap();
+        let ctx = ExtractContext {
+            ast: &ast,
+            rel_path: "constants.lua",
+            resolver: &resolver,
+            infer: &infer,
+            config: &config,
+        };
+        let unit = plugins.extract(&ctx).expect("Should extract unit");
+
+        assert!(unit.constants.iter().any(|c| c.name == "CONTROL_PRIMARY" && c.value == "0"));
+        assert!(unit.constants.iter().any(|c| c.name == "CONTROL_SECONDARY" && c.value == "1"));
+        assert!(unit.constants.iter().any(|c| c.name == "CONTROL_INV_1" && c.value == "15"));
+        assert!(unit.constants.iter().any(|c| c.name == "KEY_A" && c.value == "97"));
+        assert!(unit.constants.iter().any(|c| c.name == "KEY_B" && c.value == "98"));
+        assert!(!unit.constants.iter().any(|c| c.name == "IGNORED_CONST"));
+    }
+
+    #[test]
     fn test_clean_output_dir() {
         let temp_dir = std::env::temp_dir().join("gendefs_test_clean_output");
         let _ = std::fs::remove_dir_all(&temp_dir);

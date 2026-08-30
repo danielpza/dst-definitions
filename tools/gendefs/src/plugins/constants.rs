@@ -41,6 +41,7 @@ impl Plugin for ConstantsPlugin {
         }
 
         let allowlist = &ctx.config.plugins.constants.allowlist;
+        let patterns = &ctx.config.plugins.constants.patterns;
 
         // 1. Add configured aliases
         for (alias_name, target) in &ctx.config.plugins.constants.aliases {
@@ -52,7 +53,21 @@ impl Plugin for ConstantsPlugin {
 
         // 2. Extract statements from AST block with filter
         let is_allowed = |name: &str| -> bool {
-            allowlist.is_empty() || allowlist.iter().any(|a| a == name)
+            if allowlist.is_empty() && patterns.is_empty() {
+                return true;
+            }
+            if allowlist.iter().any(|a| a == name) {
+                return true;
+            }
+            patterns.iter().any(|p| {
+                if let Some(prefix) = p.strip_suffix('*') {
+                    name.starts_with(prefix)
+                } else if let Some(suffix) = p.strip_prefix('*') {
+                    name.ends_with(suffix)
+                } else {
+                    name == p
+                }
+            })
         };
         extract_from_block(ctx.ast.nodes(), unit, ctx, &is_allowed);
     }

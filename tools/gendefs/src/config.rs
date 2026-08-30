@@ -42,6 +42,8 @@ pub struct ConstantsConfig {
     #[serde(default, alias = "include", alias = "whitelist", alias = "properties")]
     pub allowlist: Vec<String>,
     #[serde(default)]
+    pub patterns: Vec<String>,
+    #[serde(default)]
     pub aliases: IndexMap<String, String>,
     #[serde(default)]
     pub enums: IndexMap<String, String>,
@@ -310,6 +312,9 @@ impl Config {
         }
         if !other.plugins.constants.allowlist.is_empty() {
             self.plugins.constants.allowlist = other.plugins.constants.allowlist;
+        }
+        if !other.plugins.constants.patterns.is_empty() {
+            self.plugins.constants.patterns = other.plugins.constants.patterns;
         }
         self.plugins
             .constants

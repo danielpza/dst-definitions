@@ -70,6 +70,7 @@ files = [
 
 [plugins.constants]
 files = ["constants.lua"]
+patterns = ["CONTROL_*", "KEY_*"]
 
 [plugins.functions]
 files = ["modutil.lua", "main.lua", "simutil.lua", "mainfunctions.lua"]

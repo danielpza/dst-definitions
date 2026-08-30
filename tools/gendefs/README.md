@@ -104,7 +104,7 @@ default_namespace = "ds"
 ```
 
 #### `[plugins.constants]` — Constants, Enums & Type Aliases
-Configures target files, property allowlist, type aliases, and enum annotations:
+Configures target files, property allowlist, glob/wildcard patterns, type aliases, and enum annotations:
 ```toml
 [plugins.constants]
 files = ["constants.lua"]
@@ -113,6 +113,7 @@ allowlist = [
     "ANCHOR_MIDDLE", "ANCHOR_LEFT", "ANCHOR_RIGHT", "ANCHOR_TOP", "ANCHOR_BOTTOM",
     "EQUIPSLOTS",
 ]
+patterns = ["CONTROL_*", "KEY_*"]
 
 [plugins.constants.aliases]
 "ds.hanchor" = "`ANCHOR_MIDDLE` | `ANCHOR_LEFT` | `ANCHOR_RIGHT`"

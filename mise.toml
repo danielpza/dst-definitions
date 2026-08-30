@@ -1,15 +1,15 @@
 [tools]
 lefthook = "2.1.1"
 stylua = "2.5.2"
+rust = "1.94.0"
+lua-language-server = "3.19.1"
 
 [hooks]
 postinstall = "lefthook install"
 
 [vars]
 dst_steam_path = "$HOME/.local/share/Steam/steamapps/common/Don't Starve Together"
-dst_steam_mod_location = "{{vars.dst_steam_path}}/mods/dst-omnikey"
 dst_steam_scripts_location = "{{vars.dst_steam_path}}/data/databundles/scripts.zip"
-
 
 [tasks]
 extract = '''
@@ -17,3 +17,10 @@ rm -rf dst-scripts-original
 mkdir -p dst-scripts-original
 unzip -o -q "{{vars.dst_steam_scripts_location}}" -d dst-scripts-original
 '''
+generate = '''
+cargo run --manifest-path tools/gendefs/Cargo.toml -- --clean
+stylua definitions/
+'''
+
+"lua:check" = "lua-language-server --check ."
+"rust:check" = "cargo clippy --manifest-path tools/gendefs/Cargo.toml --all-targets -- -D warnings"

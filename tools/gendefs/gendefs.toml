@@ -1,0 +1,215 @@
+# Default gendefs rules & heuristics (target files empty by default)
+
+[generate]
+src = "dst-scripts-original/scripts"
+out = "definitions/scripts"
+files = []
+
+[plugins.naming]
+special_classes = {}
+prefix_rules = [
+    { prefix = "components/", target_namespace = "ds.components", replica_suffix = "_replica", replica_namespace = "ds.replicas" },
+]
+default_namespace = "ds"
+
+[plugins.prefabs."prefabs/player_common.lua"]
+lua_name = "ThePlayer"
+class_name = "ds.prefabs.player_common"
+target_names = ["inst", "ThePlayer", "player"]
+receiver_names = ["self", "inst", "player"]
+default_fields = { HUD = "any?", player_classified = "ds.entityscript?", userid = "string", prefab = "string", playercolour = "table?", ghostenabled = "boolean?", isplayer = "boolean?" }
+
+[plugins.prefabs."prefabs/world.lua"]
+lua_name = "TheWorld"
+class_name = "ds.prefabs.world"
+target_names = ["inst", "TheWorld", "world"]
+receiver_names = ["self", "inst", "world"]
+default_fields = { ismastersim = "boolean", ismastershard = "boolean", isdeactivated = "boolean?", state = "table<string, any>", net = "ds.entityscript?", shard = "ds.entityscript?", minimap = "ds.entityscript", topology = "table?", generated = "table?", meta = "table?", PocketDimensionContainers = "table<string, ds.entityscript>" }
+
+[plugins.constants]
+files = ["constants.lua"]
+allowlist = [
+    "PI",
+    "PI2",
+    "DEGREES",
+    "RADIANS",
+    "FRAMES",
+    "TILE_SCALE",
+    "ANCHOR_MIDDLE",
+    "ANCHOR_LEFT",
+    "ANCHOR_RIGHT",
+    "ANCHOR_TOP",
+    "ANCHOR_BOTTOM",
+    "EQUIPSLOTS",
+]
+
+[plugins.constants.aliases]
+"ds.hanchor" = "`ANCHOR_MIDDLE` | `ANCHOR_LEFT` | `ANCHOR_RIGHT`"
+"ds.vanchor" = "`ANCHOR_MIDDLE` | `ANCHOR_TOP` | `ANCHOR_BOTTOM`"
+
+[plugins.constants.enums]
+EQUIPSLOTS = "ds.equipslot"
+DEPLOYMODE = "ds.deploymode"
+DEPLOYSPACING = "ds.deployspacing"
+SEASONS = "ds.seasons"
+MATERIALS = "ds.materials"
+ITEMTAG = "ds.itemtag"
+FOODTYPE = "ds.foodtype"
+FUELTYPE = "ds.fueltype"
+COLLISION = "ds.collision"
+SPECIAL_EVENTS = "ds.special_events"
+FESTIVAL_EVENTS = "ds.festival_events"
+
+[plugins.functions]
+files = ["modutil.lua", "main.lua", "simutil.lua", "mainfunctions.lua"]
+
+[plugins.functions.env_exporters."modutil.lua"]
+env_var = "env"
+functions = ["InsertPostInitFunctions"]
+
+[plugins.entity_replica."entityreplica.lua"]
+lua_name = "EntityReplica"
+table = "REPLICATABLE_COMPONENTS"
+class_name = "ds.entityreplica"
+field_namespace = "ds.replicas"
+extend_class = "ds.entityscript"
+extend_lua_name = "EntityScript"
+
+[plugins.actions."actions.lua"]
+global_name = "ACTIONS"
+value_type = "ds.actions.action"
+
+[plugins.inference.identifiers]
+Vector3 = "ds.vector3"
+
+[plugins.inference.passthrough_calls]
+AddChild = 0
+
+[plugins.inference.params.exact]
+dt = "number"
+time = "number"
+x = "number"
+y = "number"
+z = "number"
+w = "number"
+h = "number"
+width = "number"
+height = "number"
+alpha = "number"
+angle = "number"
+size = "number"
+scale = "number"
+min = "number"
+max = "number"
+r = "number"
+g = "number"
+b = "number"
+a = "number"
+
+text = "string"
+str = "string"
+string = "string"
+name = "string"
+prefab = "string"
+animname = "string"
+atlas = "string"
+tex = "string"
+
+enabled = "boolean"
+shown = "boolean"
+focus = "boolean"
+selected = "boolean"
+down = "boolean"
+horizontal = "boolean"
+reversed = "boolean"
+allowany = "boolean"
+
+owner = "ds.entityscript"
+inst = "ds.entityscript"
+child = "ds.widgets.widget"
+pos = "number|ds.vector3"
+anchor = "ds.vanchor|ds.hanchor"
+slot = "ds.equipslot"
+
+[plugins.inference.params.suffixes]
+fn = "function"
+cb = "function"
+callback = "function"
+
+[plugins.inference.params.prefixes]
+on_ = "function"
+
+[plugins.inference.calls.returns]
+GetPosition = "ds.vector3"
+GetWorldPosition = "ds.vector3"
+GetLocalPosition = "ds.vector3"
+GetScale = "ds.vector3"
+GetWorldScale = "ds.vector3"
+
+[overrides.globals.functions."RGB"]
+params = { r = "number", g = "number", b = "number", a = "number?" }
+return_type = "[number, number, number, number]"
+
+[overrides.globals.functions."GetWorldTileMap"]
+return_type = "table<string, integer>"
+
+[overrides.globals.functions."IsSpecialEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."IsAnySpecialEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."GetActiveSpecialEventCount"]
+return_type = "integer"
+
+[overrides.globals.functions."GetFirstActiveSpecialEvent"]
+return_type = "string?"
+
+[overrides.globals.functions."GetAllActiveEvents"]
+return_type = "table<string, boolean>"
+
+[overrides.globals.functions."IsAny_YearOfThe_EventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."GetSpecialEventSkinTag"]
+return_type = "string?"
+
+[overrides.globals.functions."IsFestivalEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."IsPreviousFestivalEvent"]
+return_type = "boolean"
+
+[overrides.globals.functions."IsAnyFestivalEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."GetFestivalEventSkinTag"]
+return_type = "string?"
+
+[overrides.globals.functions."GetFestivalEventInfo"]
+return_type = "table?"
+
+[overrides.globals.functions."GetFestivalEventSeasons"]
+return_type = "integer"
+
+[overrides.globals.functions."GetActiveFestivalEventServerName"]
+return_type = "string"
+
+[overrides.globals.functions."GetActiveFestivalProductName"]
+return_type = "string"
+
+[overrides.globals.functions."GetFestivalEventServerName"]
+return_type = "string"
+
+[overrides.globals.functions."GetActiveFestivalEventStatsFilePrefix"]
+return_type = "string"
+
+[overrides.globals.functions."GetActiveFestivalEventAchievementStrings"]
+return_type = "table?"
+
+[overrides.globals.functions."Server_IsTournamentActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."Client_IsTournamentActive"]
+return_type = "boolean"
+

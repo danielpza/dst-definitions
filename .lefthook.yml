@@ -1,6 +1,16 @@
 pre-commit:
   jobs:
+    - name: generate
+      run: |
+        mise run generate
+        git add definitions/scripts/
     - name: stylua
       glob: "*.lua"
       run: stylua {staged_files}
       stage_fixed: true
+    - name: luals
+      glob: "*.lua"
+      run: mise run lua:check
+    - name: clippy
+      glob: "*.rs"
+      run: mise run rust:check

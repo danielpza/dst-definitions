@@ -1,0 +1,180 @@
+# Project-specific generation targets and overrides
+
+[generate]
+src = "dst-scripts-original/scripts"
+out = "definitions/scripts"
+files = [
+    # Core & utility scripts
+    "actions.lua",
+    "bufferedaction.lua",
+    "constants.lua",
+    "entityreplica.lua",
+    "entityscript.lua",
+    "events.lua",
+    "input.lua",
+    "main.lua",
+    "mainfunctions.lua",
+    "modutil.lua",
+    "playerprofile.lua",
+    "prefabs/player_common.lua",
+    "prefabs/world.lua",
+    "scheduler.lua",
+    "simutil.lua",
+    "util/sourcemodifierlist.lua",
+    "util/wordpredictor.lua",
+    "vector3.lua",
+
+    # Components
+    "components/container.lua",
+    "components/equippable.lua",
+    "components/tool.lua",
+    "components/worldstate.lua",
+    # Components Replica
+    "components/builder_replica.lua",
+    "components/combat_replica.lua",
+    "components/constructionsite_replica.lua",
+    "components/container_replica.lua",
+    "components/equippable_replica.lua",
+    "components/fishingrod_replica.lua",
+    "components/follower_replica.lua",
+    "components/health_replica.lua",
+    "components/hunger_replica.lua",
+    "components/inventory_replica.lua",
+    "components/inventoryitem_replica.lua",
+    "components/moisture_replica.lua",
+    "components/named_replica.lua",
+    "components/oceanfishingrod_replica.lua",
+    "components/rider_replica.lua",
+    "components/sanity_replica.lua",
+    "components/sheltered_replica.lua",
+    "components/stackable_replica.lua",
+    "components/writeable_replica.lua",
+
+    # Widgets
+    "widgets/animbutton.lua",
+    "widgets/button.lua",
+    "widgets/hudcompass.lua",
+    "widgets/image.lua",
+    "widgets/imagebutton.lua",
+    "widgets/inventorybar.lua",
+    "widgets/itemimage.lua",
+    "widgets/nineslice.lua",
+    "widgets/spinner.lua",
+    "widgets/templates.lua",
+    "widgets/text.lua",
+    "widgets/textedit.lua",
+    "widgets/uianim.lua",
+    "widgets/widget.lua",
+    "widgets/wordpredictionwidget.lua",
+]
+
+[plugins.constants]
+files = ["constants.lua"]
+
+[plugins.functions]
+files = ["modutil.lua", "main.lua", "simutil.lua", "mainfunctions.lua"]
+
+[plugins.functions.env_exporters."modutil.lua"]
+env_var = "env"
+functions = ["InsertPostInitFunctions"]
+
+[plugins.entity_replica."entityreplica.lua"]
+table = "REPLICATABLE_COMPONENTS"
+class_name = "ds.entityreplica"
+field_namespace = "ds.replicas"
+extend_class = "ds.entityscript"
+
+[plugins.actions."actions.lua"]
+global_name = "ACTIONS"
+value_type = "ds.actions.action"
+
+[plugins.inference.identifiers]
+Vector3 = "ds.vector3"
+
+[plugins.inference.passthrough_calls]
+AddChild = 0
+
+[overrides.classes."ds.entityscript".fields]
+replica = "ds.entityreplica"
+
+[overrides.classes."ds.prefabs.world".fields]
+tile_physics_init = "fun(inst: ds.prefabs.world)"
+cancrossbarriers_flying = "boolean"
+has_ocean = "boolean"
+auto_teleport_players = "boolean"
+
+[overrides.globals.functions."AddComponentPostInit".params]
+component = "string"
+fn = "fun(self: any, inst: ds.entityscript)"
+
+[overrides.globals.functions."AddPlayerPostInit".params]
+fn = "fun(inst: ds.prefabs.player_common)"
+
+[overrides.globals.functions."AddAction"]
+return_type = "ds.actions.action"
+
+[overrides.globals.functions."AddAction".params]
+id = "string|ds.actions.action"
+str = "string?"
+fn = "(fun(act: ds.bufferedaction): boolean)?"
+
+[overrides.globals.functions."AddComponentAction".params]
+actiontype = "\"SCENE\"|\"USEITEM\"|\"POINT\"|\"EQUIPPED\"|\"INVENTORY\""
+component = "string"
+fn = "fun(inst: ds.entityscript, ...: any, actions: ds.actions.action[], ...: any)"
+
+[overrides.globals.functions."AddModRPCHandler".params]
+fn = "fun(inst?: ds.prefabs.player_common, ...: any)"
+
+[overrides.globals.functions."GetModRPC"]
+return_type = "table<string, any>"
+
+[overrides.globals.functions."GetClientModRPC"]
+return_type = "table<string, any>"
+
+[overrides.globals.functions."GetShardModRPC"]
+return_type = "table<string, any>"
+
+[overrides.globals.functions."AddRecipe2"]
+return_type = "any"
+
+[overrides.globals.functions."AddCharacterRecipe"]
+return_type = "any"
+
+[overrides.globals.functions."SpawnPrefab"]
+return_type = "ds.entityscript"
+
+[overrides.globals.functions."GetModConfigData"]
+return_type = "any"
+
+[overrides.classes."ds.replicas.inventory".methods."GetItems"]
+return_type = "ds.entityscript[]"
+
+[overrides.classes."ds.replicas.inventory".methods."GetEquips"]
+return_type = "ds.entityscript[]"
+
+[overrides.classes."ds.widgets.widget".methods."SetScale".params]
+y = "number?"
+z = "number?"
+
+[overrides.classes."ds.widgets.templates".methods."BackButton".params]
+txt_offset = "ds.vector3|number[]?"
+shadow_offset = "ds.vector3|number[]?"
+
+[overrides.classes."ds.widgets.templates".methods."BackgroundTint".params]
+rgb = "ds.vector3|number[]?"
+
+[overrides.classes."ds.widgets.templates".methods."ServerDetailIcon".params]
+bgColor = "ds.vector3|number[]?"
+imgOffset = "ds.vector3|number[]?"
+
+[overrides.classes."ds.widgets.templates".methods."ItemImageText".params]
+colour = "ds.vector3|number[]?"
+image_offset = "ds.vector3|number[]?"
+
+[overrides.classes."ds.widgets.templates.iconbutton"]
+super = "ds.widgets.imagebutton"
+fields = { icon = "ds.widgets.image", highlight = "ds.widgets.image", label = "ds.widgets.text?" }
+
+[overrides.classes."ds.widgets.templates".methods."IconButton"]
+return_type = "ds.widgets.templates.iconbutton"

@@ -7,7 +7,7 @@
 ---@field in_pos ds.vector3
 ---@field base_scale number
 ---@field selected_scale number
----@field inv table
+---@field inv ds.widgets.invslot[]
 ---@field backpackinv table
 ---@field equip table
 ---@field equipslotinfo table

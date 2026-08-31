@@ -8,7 +8,7 @@ files = []
 [plugins.naming]
 special_classes = {}
 prefix_rules = [
-    { prefix = "components/", target_namespace = "ds.components", replica_suffix = "_replica", replica_namespace = "ds.replicas" },
+  { prefix = "components/", target_namespace = "ds.components", replica_suffix = "_replica", replica_namespace = "ds.replicas" },
 ]
 default_namespace = "ds"
 
@@ -29,18 +29,18 @@ default_fields = { ismastersim = "boolean", ismastershard = "boolean", isdeactiv
 [plugins.constants]
 files = ["constants.lua"]
 allowlist = [
-    "PI",
-    "PI2",
-    "DEGREES",
-    "RADIANS",
-    "FRAMES",
-    "TILE_SCALE",
-    "ANCHOR_MIDDLE",
-    "ANCHOR_LEFT",
-    "ANCHOR_RIGHT",
-    "ANCHOR_TOP",
-    "ANCHOR_BOTTOM",
-    "EQUIPSLOTS",
+  "PI",
+  "PI2",
+  "DEGREES",
+  "RADIANS",
+  "FRAMES",
+  "TILE_SCALE",
+  "ANCHOR_MIDDLE",
+  "ANCHOR_LEFT",
+  "ANCHOR_RIGHT",
+  "ANCHOR_TOP",
+  "ANCHOR_BOTTOM",
+  "EQUIPSLOTS",
 ]
 
 [plugins.constants.aliases]
@@ -145,71 +145,3 @@ GetWorldPosition = "ds.vector3"
 GetLocalPosition = "ds.vector3"
 GetScale = "ds.vector3"
 GetWorldScale = "ds.vector3"
-
-[overrides.globals.functions."RGB"]
-params = { r = "number", g = "number", b = "number", a = "number?" }
-return_type = "[number, number, number, number]"
-
-[overrides.globals.functions."GetWorldTileMap"]
-return_type = "table<string, integer>"
-
-[overrides.globals.functions."IsSpecialEventActive"]
-return_type = "boolean"
-
-[overrides.globals.functions."IsAnySpecialEventActive"]
-return_type = "boolean"
-
-[overrides.globals.functions."GetActiveSpecialEventCount"]
-return_type = "integer"
-
-[overrides.globals.functions."GetFirstActiveSpecialEvent"]
-return_type = "string?"
-
-[overrides.globals.functions."GetAllActiveEvents"]
-return_type = "table<string, boolean>"
-
-[overrides.globals.functions."IsAny_YearOfThe_EventActive"]
-return_type = "boolean"
-
-[overrides.globals.functions."GetSpecialEventSkinTag"]
-return_type = "string?"
-
-[overrides.globals.functions."IsFestivalEventActive"]
-return_type = "boolean"
-
-[overrides.globals.functions."IsPreviousFestivalEvent"]
-return_type = "boolean"
-
-[overrides.globals.functions."IsAnyFestivalEventActive"]
-return_type = "boolean"
-
-[overrides.globals.functions."GetFestivalEventSkinTag"]
-return_type = "string?"
-
-[overrides.globals.functions."GetFestivalEventInfo"]
-return_type = "table?"
-
-[overrides.globals.functions."GetFestivalEventSeasons"]
-return_type = "integer"
-
-[overrides.globals.functions."GetActiveFestivalEventServerName"]
-return_type = "string"
-
-[overrides.globals.functions."GetActiveFestivalProductName"]
-return_type = "string"
-
-[overrides.globals.functions."GetFestivalEventServerName"]
-return_type = "string"
-
-[overrides.globals.functions."GetActiveFestivalEventStatsFilePrefix"]
-return_type = "string"
-
-[overrides.globals.functions."GetActiveFestivalEventAchievementStrings"]
-return_type = "table?"
-
-[overrides.globals.functions."Server_IsTournamentActive"]
-return_type = "boolean"
-
-[overrides.globals.functions."Client_IsTournamentActive"]
-return_type = "boolean"
-

@@ -68,6 +68,7 @@ files = [
   "widgets/uianim.lua",
   "widgets/widget.lua",
   "widgets/wordpredictionwidget.lua",
+  "widgets/containerwidget.lua",
 ]
 
 [plugins.constants]
@@ -181,3 +182,73 @@ fields = { icon = "ds.widgets.image", highlight = "ds.widgets.image", label = "d
 
 [overrides.classes."ds.widgets.templates".methods."IconButton"]
 return_type = "ds.widgets.templates.iconbutton"
+
+[overrides.globals.functions."RGB"]
+params = { r = "number", g = "number", b = "number", a = "number?" }
+return_type = "[number, number, number, number]"
+
+[overrides.globals.functions."GetWorldTileMap"]
+return_type = "table<string, integer>"
+
+[overrides.globals.functions."IsSpecialEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."IsAnySpecialEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."GetActiveSpecialEventCount"]
+return_type = "integer"
+
+[overrides.globals.functions."GetFirstActiveSpecialEvent"]
+return_type = "string?"
+
+[overrides.globals.functions."GetAllActiveEvents"]
+return_type = "table<string, boolean>"
+
+[overrides.globals.functions."IsAny_YearOfThe_EventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."GetSpecialEventSkinTag"]
+return_type = "string?"
+
+[overrides.globals.functions."IsFestivalEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."IsPreviousFestivalEvent"]
+return_type = "boolean"
+
+[overrides.globals.functions."IsAnyFestivalEventActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."GetFestivalEventSkinTag"]
+return_type = "string?"
+
+[overrides.globals.functions."GetFestivalEventInfo"]
+return_type = "table?"
+
+[overrides.globals.functions."GetFestivalEventSeasons"]
+return_type = "integer"
+
+[overrides.globals.functions."GetActiveFestivalEventServerName"]
+return_type = "string"
+
+[overrides.globals.functions."GetActiveFestivalProductName"]
+return_type = "string"
+
+[overrides.globals.functions."GetFestivalEventServerName"]
+return_type = "string"
+
+[overrides.globals.functions."GetActiveFestivalEventStatsFilePrefix"]
+return_type = "string"
+
+[overrides.globals.functions."GetActiveFestivalEventAchievementStrings"]
+return_type = "table?"
+
+[overrides.globals.functions."Server_IsTournamentActive"]
+return_type = "boolean"
+
+[overrides.globals.functions."Client_IsTournamentActive"]
+return_type = "boolean"
+
+[overrides.classes."ds.widgets.inventorybar.inv".fields]
+inv = "ds.widgets.invslot[]"
